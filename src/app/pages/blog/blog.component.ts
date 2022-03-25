@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import Theme from '../theme';
 
 @Component({
   selector: 'app-blog',
@@ -6,16 +7,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./blog.component.css'],
 })
 export class BlogComponent implements OnInit {
-  @ViewChild('circle') circle: any;
-  @ViewChild('slider') slider: any;
-  theme: string = 'light';
+  // @ViewChild('circle') circle: any;
+  // @ViewChild('slider') slider: any;
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  changeTheme(): void {
-    this.circle.nativeElement.classList.toggle('circle__move');
-    this.slider.nativeElement.classList.toggle('dark-theme');
-  }
 }

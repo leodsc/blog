@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { BlogComponent } from './pages/blog/blog.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +17,10 @@ import { BlogComponent } from './pages/blog/blog.component';
     PostsComponent,
     ProjectsComponent,
     BlogComponent,
+    LoginComponent,
+    SignupComponent,
+    FooterComponent,
+    FormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

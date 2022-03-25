@@ -23,3 +23,13 @@ body {
 .page {
   background-color: var(--light-theme);
 }
+
+.dark,
+.dark > * {
+  background-color: var(--dark);
+  color: white;
+}
+
+.light {
+  background-color: var(--light-theme);
+}
