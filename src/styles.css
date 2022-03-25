@@ -27,9 +27,10 @@ body {
 .dark,
 .dark > * {
   background-color: var(--dark);
-  color: white;
+  color: var(--light-theme);
 }
 
-.light {
+.light .light > * {
   background-color: var(--light-theme);
+  color: var(--dark);
 }
