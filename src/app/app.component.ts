@@ -21,5 +21,6 @@ export class AppComponent {
     }
     let themeType = localStorage.getItem('theme');
     this.theme = new Theme(themeType);
+    console.log(this.theme);
   }
 }

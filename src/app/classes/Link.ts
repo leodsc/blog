@@ -1,17 +1,17 @@
 export default class Link {
-  private name: string;
-  private icon: string;
+  private _name: string;
+  private _icon: string;
 
   constructor(name: string, icon: string) {
-    this.name = name;
-    this.icon = icon;
+    this._name = name;
+    this._icon = icon;
   }
 
-  getName(): string {
-    return this.name;
+  get name(): string {
+    return this._name;
   }
 
-  getIcon(): string {
-    return this.icon;
+  get icon(): string {
+    return this._icon;
   }
 }

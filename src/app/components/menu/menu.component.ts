@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import Link from 'src/app/classes/Link';
 
 @Component({
   selector: 'app-menu',
@@ -6,16 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  buttonName: string = 'Sair';
-  text: string = 'Logado como: Leo';
   @Input() theme: any;
+  showNav: boolean = false;
+  navActive: string = '';
+  navigation: Link[] = [
+    new Link('Inicio', '/assets/user.svg'),
+    new Link('Login', '/assets/user.svg'),
+    new Link('Cadastrar', '/assets/user.svg'),
+  ];
 
   constructor() {}
 
-  ngOnInit(): void {
-    if (window.location.href.endsWith('/cadastrar')) {
-      this.buttonName = 'Entrar';
-      this.text = '';
-    }
+  ngOnInit(): void {}
+
+  changeNav() {
+    this.showNav = !this.showNav;
+    this.navActive = this.showNav ? 'nav-active' : '';
   }
 }

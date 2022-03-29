@@ -10,11 +10,38 @@
   </ul>
 </nav> -->
 
-<nav
-  class="navbar navbar-light p-3 bg-{{ theme._type }} justify-content-between"
->
-  <button class="btn btn-outline-success" type="button">
-    <a routerLink="/logout"></a>
-    {{ buttonName }}
+<header class="{{ theme.type }}">
+  <nav *ngIf="showNav" class="app-nav {{ theme.type }}">
+    <ul class="app-nav--links-ctn">
+      <li *ngFor="let item of navigation" class="app-nav--link-list">
+        <img
+          width="40"
+          height="40"
+          src="{{ item.icon }}"
+          alt=""
+          class="link-icon"
+        /><a routerLink="{{ item.name | lowercase }}" class="app-nav--link">{{
+          item.name
+        }}</a>
+      </li>
+    </ul>
+  </nav>
+  <button
+    (click)="changeNav()"
+    class="app-nav--hamburguer-ctn {{ navActive }} {{ theme.type }}--child"
+  >
+    <div class="hamburguer-ctn--line {{ navActive }}"></div>
+    <div *ngIf="!showNav" class="hamburguer-ctn--line"></div>
+    <div class="hamburguer-ctn--line {{ navActive }}"></div>
   </button>
-</nav>
+  <button (click)="theme.change()">
+    <img
+      src="assets/icons/{{ theme.type }}-theme/{{ theme.type }}-icon.svg"
+      alt=""
+    />
+    Tema {{ theme.name }}
+  </button>
+  <!-- <button #slider (click)="changeTheme()" class="slider">
+      <div #circle class="circle"></div>
+    </button> -->
+</header>
