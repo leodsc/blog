@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import Link from 'src/app/classes/Link';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,12 @@ export class MenuComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(environment.token);
+    if (environment.token !== '') {
+      this.navigation = [new Link('Sair', '/assets/user.svg')];
+    }
+  }
 
   changeNav() {
     this.showNav = !this.showNav;

@@ -1,1 +1,65 @@
-<p>inicio works!</p>
+<main>
+  <section>
+    <button class="btn" (click)="changeCurrentPanel('tema')">Temas</button>
+    <button class="btn" (click)="changeCurrentPanel('postagens')">
+      Postagens
+    </button>
+  </section>
+  <article *ngIf="currentPanel === 'postagens'">
+    <select class="border-0" aria-label="Default select example">
+      <option selected>Escolha um tema para a postagem</option>
+      <option *ngFor="let tema of temas" value="{{ tema.descricao }}">
+        {{ tema.descricao }}
+      </option>
+    </select>
+    <div class="input-group">
+      <textarea
+        style="height: 160px"
+        class="form-control"
+        placeholder="Texto da postagem"
+        aria-label="With textarea"
+      ></textarea>
+    </div>
+    <div class="input-group mb-3 align-items-center">
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default"
+        placeholder="Título da nova postagem"
+        required
+      />
+      <button
+        class="input-group-text bg-info text-white"
+        id="inputGroup-sizing-default"
+      >
+        Enviar
+      </button>
+    </div>
+    <div *ngFor="let postagem of postagens">
+      <p class="titulo">{{ postagem.titulo }}</p>
+      <p class="texto">{{ postagem.texto }}</p>
+      <p class="tema">{{ postagem.tema?.descricao }}</p>
+    </div>
+  </article>
+  <article *ngIf="currentPanel === 'tema'">
+    <div class="input-group mb-3">
+      <button
+        class="input-group-text bg-info text-white"
+        id="inputGroup-sizing-default"
+      >
+        Enviar
+      </button>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default"
+        placeholder="Criar tema"
+      />
+    </div>
+    <div *ngFor="let tema of temas">
+      <p class="tema">{{ tema.descricao }}</p>
+    </div>
+  </article>
+</main>
