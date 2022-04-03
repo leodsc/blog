@@ -1,3 +1,11 @@
-export const environment = {
-  production: true
+export const environment: {
+  production: boolean;
+  foto?: string;
+  nome?: string;
+  token?: string;
+} = {
+  production: true,
+  foto: '',
+  nome: '',
+  token: '',
 };

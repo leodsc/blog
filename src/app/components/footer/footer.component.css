@@ -1,0 +1,18 @@
+.app-footer {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-footer--title {
+  font-size: 1.5em;
+}
+
+.app-footer--socials {
+  display: flex;
+  gap: 1rem;
+}
