@@ -5,7 +5,11 @@ main {
   gap: 2rem;
 }
 
-.btn {
+#modal {
+  position: absolute;
+}
+
+.btn-a {
   margin-top: 1rem;
   border-radius: 5px;
   background-color: #b0e1f9;
@@ -44,4 +48,8 @@ article {
 .texto {
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.25);
   padding: 1rem;
+}
+
+textarea {
+  resize: none;
 }

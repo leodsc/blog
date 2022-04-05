@@ -2,41 +2,43 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  justify-content: center;
+  width: 100vw;
+  height: 79.5vh;
   gap: 1.5rem;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(https://images.pexels.com/photos/461077/pexels-photo-461077.jpeg?cs=srgb&dl=pexels-picjumbocom-461077.jpg&fm=jpg);
+  z-index: -2;
+  text-align: center;
 }
 
-.btn-page {
-  background-color: #0d6efd;
-  color: white;
-  font-weight: 700;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-}
-
-img {
-  margin-right: 0.5rem;
-}
-
-.slider {
-  background-color: var(--dark);
-  box-shadow: -1px -1px 2px 1px rgba(0, 0, 0, 0.25);
-  width: 125px;
-  border-radius: 30px;
-}
-
-.dark-theme {
-  background-color: #e2e2e2;
-}
-
-.circle {
-  border-radius: 100%;
-  width: 35%;
+.cover {
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
   height: 100%;
-  background-color: snow;
-  transition: 500ms all;
+  position: absolute;
+  z-index: -1;
 }
 
-.circle__move {
-  transform: translateX(185%);
+.title,
+.subtitle {
+  color: white;
+}
+
+.title {
+  font-size: 4em;
+}
+
+.subtitle {
+  font-size: 2em;
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+button {
+  font-size: 2em;
+  cursor: pointer;
 }

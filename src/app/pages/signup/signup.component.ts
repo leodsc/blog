@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { UserLogin } from 'src/app/model/UserLogin';
 import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-signup',
@@ -29,11 +30,13 @@ export class SignupComponent implements OnInit {
   cadastrar($event: any) {
     this.user.tipo = this.tipoUsuario;
 
-    console.log(JSON.stringify(this.user));
     this.user.senha != this.confirmarSenha
       ? alert('Senhas diferentes!')
       : this.authService.cadastrar(this.user).subscribe((resp: User) => {
           this.user = resp;
+          environment.nome = this.user.nome;
+          environment.foto = this.user.foto;
+          console.log(environment.nome, environment.foto);
           this.router.navigate(['/login']);
           alert('Usuário cadastrado com sucesso!');
         });

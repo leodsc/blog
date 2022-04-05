@@ -18,6 +18,7 @@
 
 body {
   background-color: #f1f5f8;
+  overflow-x: hidden;
 }
 
 .page {
@@ -25,22 +26,22 @@ body {
 }
 
 .dark,
-.dark>* {
+.dark > * {
   background-color: var(--dark);
   color: var(--light-theme);
 }
 
-.light .light>* {
+.light .light > * {
   background-color: var(--light-theme);
   color: var(--dark);
 }
 
-.light--child>* {
+.light--child > * {
   background-color: var(--dark);
   color: var(--light-theme);
 }
 
-.dark--child>* {
+.dark--child > * {
   background-color: var(--light-theme);
   color: var(--dark);
 }

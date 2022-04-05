@@ -12,17 +12,15 @@ export class MenuComponent implements OnInit {
   showNav: boolean = false;
   navActive: string = '';
   navigation: Link[] = [
-    new Link('Inicio', '/assets/user.svg'),
-    new Link('Login', '/assets/user.svg'),
-    new Link('Cadastrar', '/assets/user.svg'),
+    new Link('Login', '/assets/user.svg', '/login'),
+    new Link('Cadastrar', '/assets/user.svg', '/cadastrar'),
   ];
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(environment.token);
     if (environment.token !== '') {
-      this.navigation = [new Link('Sair', '/assets/user.svg')];
+      this.navigation = [new Link('Sair', '/assets/user.svg', '/sair')];
     }
   }
 

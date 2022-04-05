@@ -30,7 +30,9 @@ public class UsuarioService {
   public ResponseEntity<UsuarioLogin> login(UsuarioModel usuario) {
     UserDetails user = userDetailsService.loadUserByUsername(usuario.getUsuario());
     String token = generateToken(user);
-    var usuarioLogin = new UsuarioLogin(usuario);
+    System.out.println(token);
+    var dbUsuario = repo.findByUsuario(usuario.getUsuario());
+    var usuarioLogin = new UsuarioLogin(dbUsuario.get());
     usuarioLogin.setToken(token);
     return ResponseEntity.ok().body(usuarioLogin);
   }

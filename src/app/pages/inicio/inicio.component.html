@@ -1,16 +1,16 @@
 <main>
   <section>
-    <button class="btn" (click)="changeCurrentPanel('tema')">Temas</button>
-    <button class="btn" (click)="changeCurrentPanel('postagens')">
+    <button class="btn-a" (click)="changeCurrentPanel('tema')">Temas</button>
+    <button class="btn-a" (click)="changeCurrentPanel('postagens')">
       Postagens
     </button>
   </section>
   <article *ngIf="currentPanel === 'postagens'">
     <select class="border-0" aria-label="Default select example">
       <option selected>Escolha um tema para a postagem</option>
-      <option *ngFor="let tema of temas" value="{{ tema }}">
-        {{ tema }}
-      </option>
+      <!-- <option *ngFor="let tema of temas" value="{{ tema }}"> -->
+      <!-- {{ tema }} -->
+      <!-- </option> -->
     </select>
     <div class="input-group">
       <textarea
@@ -30,7 +30,6 @@
         required
       />
       <button
-        (click)="criarTema()"
         class="input-group-text bg-info text-white"
         id="inputGroup-sizing-default"
       >
@@ -44,23 +43,54 @@
     </div>
   </article>
   <article *ngIf="currentPanel === 'tema'">
-    <div class="input-group mb-3">
-      <button
-        class="input-group-text bg-info text-white"
-        id="inputGroup-sizing-default"
-      >
-        Enviar
-      </button>
+    <h1>Criar novo tema</h1>
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome do tema</label>
       <input
-        type="text"
+        [(ngModel)]="tema.nome"
+        type="email"
         class="form-control"
-        aria-label="Sizing example input"
-        aria-describedby="inputGroup-sizing-default"
-        placeholder="Criar tema"
+        id="nome"
+        name="nome"
+        placeholder="Exemplo: futebol"
       />
     </div>
-    <div *ngFor="let tema of temas">
-      <p class="tema">{{ tema }}</p>
+    <div class="mb-3">
+      <label for="descricao" class="form-label">Descrição do tema</label>
+      <textarea
+        [(ngModel)]="tema.descricao"
+        class="form-control"
+        id="descricao"
+        name="descricao"
+        rows="3"
+      ></textarea>
+      <button type="button" (click)="criarTema()" class="btn btn-success">
+        Criar
+      </button>
     </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Tema</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tema of temas">
+          <td>{{ tema.id }}</td>
+          <td>{{ tema.nome }}</td>
+          <td>{{ tema.descricao }}</td>
+          <button type="button" class="btn btn-info" (click)="modal(tema)">
+            Editar
+          </button>
+          <button type="button" class="btn btn-danger">Excluir</button>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div *ngFor="let tema of temas">
+      <p class="tema">{{ tema }}</p>
+    </div> -->
   </article>
 </main>

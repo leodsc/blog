@@ -21,6 +21,9 @@ public class TemaModel {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull(message="O atributo nome é obrigatorio!")
+  private String nome;
+
   @NotNull(message = "O atributo Descrição é obrigatório")
   private String descricao;
 
@@ -54,4 +57,11 @@ public class TemaModel {
     this.postagem = postagem;
   }
 
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 }

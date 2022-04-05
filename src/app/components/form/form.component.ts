@@ -20,9 +20,10 @@ export class FormComponent implements OnInit {
     this.authService.entrar(this.userLogin).subscribe(
       (resp: UserLogin) => {
         this.userLogin = resp;
-        environment.token = this.userLogin.token;
+        environment.token = 'Basic ' + this.userLogin.token;
         environment.nome = this.userLogin.nome;
         environment.foto = this.userLogin.foto;
+        console.log(environment);
         this.router.navigate(['/inicio']);
       },
       (erro) => {
