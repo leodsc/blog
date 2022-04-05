@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Link from 'src/app/classes/Link';
+import { AuthService } from 'src/app/service/auth.service';
+import { MenuLoginService } from 'src/app/service/menu-login.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -9,23 +12,37 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class MenuComponent implements OnInit {
   @Input() theme: any;
+  logado: boolean = false;
   showNav: boolean = false;
+  nome = sessionStorage.getItem('nome');
+  foto?: string;
   navActive: string = '';
   navigation: Link[] = [
     new Link('Login', '/assets/user.svg', '/login'),
     new Link('Cadastrar', '/assets/user.svg', '/cadastrar'),
   ];
 
-  constructor() {}
+  constructor(
+    private route: Router,
+    private menuLoginService: MenuLoginService
+  ) {}
 
   ngOnInit(): void {
-    if (environment.token !== '') {
-      this.navigation = [new Link('Sair', '/assets/user.svg', '/sair')];
-    }
+    this.nome = sessionStorage.getItem('nome');
+    this.foto = environment.foto;
+    this.menuLoginService.logadoBehavior.subscribe((status) => {
+      this.logado = status;
+    });
   }
 
   changeNav() {
     this.showNav = !this.showNav;
     this.navActive = this.showNav ? 'nav-active' : '';
+  }
+
+  sair() {
+    sessionStorage.removeItem('token');
+    this.logado = false;
+    this.route.navigate(['/']);
   }
 }

@@ -32,12 +32,12 @@ public class TemaController {
     return service.criar(tema);
   }
 
-  @PutMapping("/atualizar")
+  @PutMapping
   public ResponseEntity<TemaModel> atualizarTema(@RequestBody TemaModel tema) {
     return service.atualizar(tema);
   }
 
-  @DeleteMapping("/deletar")
+  @DeleteMapping
   public HttpStatus deletarTema(@RequestBody TemaModel tema) {
     service.deletar(tema);
     return HttpStatus.OK;

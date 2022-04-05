@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './pages/posts/posts.component';
@@ -27,7 +28,13 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     FooterComponent,
     InicioComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatDialogModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

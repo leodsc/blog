@@ -1,45 +1,4 @@
-<main>
-  <!-- Button trigger modal -->
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
-  ></button>
-
-  <!-- Modal -->
-  <div
-    *ngIf="showModal"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">...</div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<main *ngIf="_reload">
   <section>
     <button class="btn-a" (click)="changeCurrentPanel('tema')">Temas</button>
     <button class="btn-a" (click)="changeCurrentPanel('postagens')">
@@ -49,9 +8,9 @@
   <article *ngIf="currentPanel === 'postagens'">
     <select class="border-0" aria-label="Default select example">
       <option selected>Escolha um tema para a postagem</option>
-      <!-- <option *ngFor="let tema of temas" value="{{ tema }}"> -->
-      <!-- {{ tema }} -->
-      <!-- </option> -->
+      <option *ngFor="let tema of temas" value="{{ tema }}">
+        {{ tema.nome }}
+      </option>
     </select>
     <div class="input-group">
       <textarea
@@ -109,6 +68,39 @@
         Criar
       </button>
     </div>
+    <div *ngIf="modalEdit" class="modal-ctn">
+      <h3>Editar tema</h3>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default"
+        placeholder="Título da nova postagem"
+        required
+        [(ngModel)]="currentTema.nome"
+      />
+      <div class="input-group mb-3 align-items-center">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default"
+          placeholder="Título da nova postagem"
+          required
+          [(ngModel)]="currentTema.descricao"
+        />
+        <button
+          (click)="enviarEdicao()"
+          class="input-group-text bg-info text-white"
+          id="inputGroup-sizing-default"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+    <!-- <div *ngIf="modalClose" class="modal-ctn">
+      <h3>{{ modal.name }}</h3>
+    </div> -->
     <table class="table">
       <thead>
         <tr>
@@ -123,10 +115,12 @@
           <td>{{ tema.id }}</td>
           <td>{{ tema.nome }}</td>
           <td>{{ tema.descricao }}</td>
-          <button type="button" class="btn btn-info" (click)="modal(tema)">
+          <button type="button" class="btn btn-info" (click)="editar(tema)">
             Editar
           </button>
-          <button type="button" class="btn btn-danger">Excluir</button>
+          <button type="button" class="btn btn-danger" (click)="excluir(tema)">
+            Excluir
+          </button>
         </tr>
       </tbody>
     </table>

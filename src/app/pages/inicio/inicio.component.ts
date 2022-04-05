@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Postagem } from 'src/app/model/Postagem';
 import { Tema } from 'src/app/model/Tema';
 import { environment } from 'src/environments/environment.prod';
@@ -10,18 +11,19 @@ import { TemaService } from '../../service/tema.service';
   styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
-  @ViewChild('modal') modal: any;
-  showModal: boolean = false;
+  _reload = true;
+  modalEdit: boolean = false;
+  currentTema: any;
   postagens: Postagem[] = [];
   // temas: string[] = ['futebol', 'bilhete unico'];
   currentPanel: string = 'postagens';
   temas: any;
   tema: Tema = new Tema();
 
-  constructor(private temaService: TemaService) {}
+  constructor(private temaService: TemaService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getAll();
+    environment.token !== '' ? this.getAll() : this.router.navigate(['/login']);
   }
 
   changeCurrentPanel(panel: string) {
@@ -31,7 +33,6 @@ export class InicioComponent implements OnInit {
   getAll() {
     this.temaService.getAll().subscribe((resp: Tema) => {
       this.temas = resp;
-      console.log(resp);
     });
   }
 
@@ -44,15 +45,24 @@ export class InicioComponent implements OnInit {
   }
 
   editar($event: any) {
-    // this.showModal = !this.showModal;
-    this.modal.nativeElement.classList.toggle('modal');
-    console.log(this.modal);
+    this.modalEdit = !this.modalEdit;
+    this.currentTema = $event;
     // this.temaService.editar($event);
     // this.getAll();
   }
 
-  // excluir($event: any) {
-  //   this.temaService.excluir($event);
-  //   this.getAll();
-  // }
+  excluir($event: any) {
+    this.temaService.excluir($event).subscribe(() => {
+      alert('Tema excluído!');
+    });
+    this.getAll();
+  }
+
+  enviarEdicao() {
+    console.log(this.currentTema);
+    this.temaService.editar(this.currentTema).subscribe((resp: Tema) => {
+      alert(`Tema foi alterado!`);
+    });
+    this.getAll();
+  }
 }

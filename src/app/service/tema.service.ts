@@ -9,11 +9,9 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class TemaService {
   constructor(private http: HttpClient) {}
+  token: any = sessionStorage.getItem('token');
 
-  headers = new HttpHeaders().set(
-    'Authorization',
-    'Basic bGVveml0b0BnbWFpbC5jb206dGVzdGUxMjM='
-  );
+  headers = new HttpHeaders().set('Authorization', this.token);
 
   getAll(): Observable<Tema> {
     return this.http.get('http://localhost:8080/tema', {
@@ -27,9 +25,16 @@ export class TemaService {
     });
   }
 
-  editar(tema: Tema) {
-    this.http.put('http://localhost:8080/tema', tema, {
+  editar(tema: Tema): Observable<Tema> {
+    return this.http.put('http://localhost:8080/tema', tema, {
       headers: this.headers,
+    });
+  }
+
+  excluir(tema: Tema): Observable<Tema> {
+    return this.http.delete('http://localhost:8080/tema', {
+      headers: this.headers,
+      body: tema,
     });
   }
 }

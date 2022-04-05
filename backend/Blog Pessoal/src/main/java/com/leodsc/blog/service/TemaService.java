@@ -25,11 +25,16 @@ public class TemaService {
   }
 
   public ResponseEntity<TemaModel> atualizar(TemaModel tema) {
-    repo.save(tema);
+    System.out.println(tema.getNome());
+    var novoTema = repo.findById(tema.getId()).get();
+    novoTema.setNome(tema.getNome());
+    novoTema.setDescricao(tema.getDescricao());
+    repo.save(novoTema);
     return ResponseEntity.ok().body(tema);
   }
 
   public void deletar(TemaModel tema) {
-    repo.delete(tema);
+    var temaDeletar = repo.findById(tema.getId());
+    repo.delete(temaDeletar.get());
   }
 }

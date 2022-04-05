@@ -29,7 +29,7 @@ public class UsuarioService {
 
   public ResponseEntity<UsuarioLogin> login(UsuarioModel usuario) {
     UserDetails user = userDetailsService.loadUserByUsername(usuario.getUsuario());
-    String token = generateToken(user);
+    String token = generateToken(usuario);
     System.out.println(token);
     var dbUsuario = repo.findByUsuario(usuario.getUsuario());
     var usuarioLogin = new UsuarioLogin(dbUsuario.get());
@@ -37,8 +37,8 @@ public class UsuarioService {
     return ResponseEntity.ok().body(usuarioLogin);
   }
 
-  public String generateToken(UserDetails user) {
-    String userToken = user.getUsername() + ":" + user.getPassword();
+  public String generateToken(UsuarioModel user) {
+    String userToken = user.getUsuario() + ":" + user.getSenha();
     return Base64.getEncoder().encodeToString(userToken.getBytes(StandardCharsets.UTF_8));
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/model/UserLogin';
 import { AuthService } from 'src/app/service/auth.service';
+import { MenuLoginService } from 'src/app/service/menu-login.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -12,7 +13,11 @@ import { environment } from 'src/environments/environment.prod';
 export class FormComponent implements OnInit {
   userLogin: UserLogin = new UserLogin();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private menuLoginService: MenuLoginService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -20,10 +25,14 @@ export class FormComponent implements OnInit {
     this.authService.entrar(this.userLogin).subscribe(
       (resp: UserLogin) => {
         this.userLogin = resp;
+        let temp: any;
         environment.token = 'Basic ' + this.userLogin.token;
-        environment.nome = this.userLogin.nome;
+        // environment.nome = this.userLogin.nome;
+        temp = this.userLogin.nome;
         environment.foto = this.userLogin.foto;
-        console.log(environment);
+        sessionStorage.setItem('token', environment.token);
+        sessionStorage.setItem('nome', temp);
+        this.menuLoginService.editMenu(true);
         this.router.navigate(['/inicio']);
       },
       (erro) => {
