@@ -8,10 +8,4 @@ export class Postagem {
   public data?: Date;
   public Usuario?: User;
   public tema?: Tema;
-
-  constructor(tema: Tema, titulo: string, texto: string) {
-    this.tema = tema;
-    this.titulo = titulo;
-    this.texto = texto;
-  }
 }

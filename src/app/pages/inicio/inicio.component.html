@@ -8,8 +8,8 @@
   <article *ngIf="currentPanel === 'postagens'">
     <select class="border-0" aria-label="Default select example">
       <option selected>Escolha um tema para a postagem</option>
-      <option *ngFor="let tema of temas" value="{{ tema.descricao }}">
-        {{ tema.descricao }}
+      <option *ngFor="let tema of temas" value="{{ tema }}">
+        {{ tema }}
       </option>
     </select>
     <div class="input-group">
@@ -30,6 +30,7 @@
         required
       />
       <button
+        (click)="criarTema()"
         class="input-group-text bg-info text-white"
         id="inputGroup-sizing-default"
       >
@@ -59,7 +60,7 @@
       />
     </div>
     <div *ngFor="let tema of temas">
-      <p class="tema">{{ tema.descricao }}</p>
+      <p class="tema">{{ tema }}</p>
     </div>
   </article>
 </main>
