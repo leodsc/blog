@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   logado: boolean = false;
   showNav: boolean = false;
   nome = sessionStorage.getItem('nome');
-  foto?: string;
+  foto: string = '';
   navActive: string = '';
   navigation: Link[] = [
     new Link('Login', '/assets/user.svg', '/login'),
@@ -28,10 +28,12 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.nome = sessionStorage.getItem('nome');
-    this.foto = environment.foto;
     this.menuLoginService.logadoBehavior.subscribe((status) => {
       this.logado = status;
+      if (this.logado) {
+        this.nome = sessionStorage.getItem('nome');
+        this.foto = String(sessionStorage.getItem('foto'));
+      }
     });
   }
 

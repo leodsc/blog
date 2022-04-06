@@ -1,4 +1,4 @@
-<main *ngIf="_reload">
+<main>
   <section>
     <button class="btn-a" (click)="changeCurrentPanel('tema')">Temas</button>
     <button class="btn-a" (click)="changeCurrentPanel('postagens')">
@@ -6,19 +6,24 @@
     </button>
   </section>
   <article *ngIf="currentPanel === 'postagens'">
-    <!-- <select class="border-0" aria-label="Default select example">
-      <label for="tema"></label>
-      <option selected>Escolha um tema para a postagem</option>
+    <label for="tema">Escolha um tema para a postagem</label>
+    <select
+      name="tema"
+      id="tema"
+      [(ngModel)]="temaId"
+      (change)="findById(temaId)"
+      class="border-0"
+      aria-label="Default select example"
+    >
       <option
-        [(ngModel)]="postagem.tema!.nome"
         *ngFor="let tema of temas"
         name="tema"
         id="tema"
-        value="{{ tema }}"
+        value="{{ tema.id }}"
       >
         {{ tema.nome }}
       </option>
-    </select> -->
+    </select>
     <div class="input-group">
       <label for="texto"></label>
       <textarea
@@ -51,10 +56,56 @@
         Enviar
       </button>
     </div>
+    <div *ngIf="modalEditPostagem" class="modal-ctn">
+      <h3>Editar Postagem</h3>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default"
+        placeholder="Título da nova postagem"
+        required
+        [(ngModel)]="currentPostagem.titulo"
+      />
+      <div class="input-group mb-3 align-items-center">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default"
+          placeholder="Corpo da nova postagem"
+          required
+          [(ngModel)]="currentPostagem.texto"
+        />
+        <button
+          (click)="editarPostagem()"
+          class="input-group-text bg-info text-white"
+          id="inputGroup-sizing-default"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
     <div *ngFor="let postagem of postagens">
-      <p class="titulo">{{ postagem.titulo }}</p>
-      <p class="texto">{{ postagem.texto }}</p>
-      <p class="tema">{{ postagem.tema?.descricao }}</p>
+      <p class="titulo">Titulo: {{ postagem.titulo }}</p>
+      <p class="texto">
+        {{ postagem.texto }}
+        <button
+          type="button"
+          class="btn btn-info"
+          (click)="editar(postagem, 'postagem')"
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="excluirPostagem(postagem)"
+        >
+          Excluir
+        </button>
+      </p>
+      <p class="tema">Tema: {{ postagem.tema.nome }}</p>
     </div>
   </article>
   <article *ngIf="currentPanel === 'tema'">
@@ -130,7 +181,11 @@
           <td>{{ tema.id }}</td>
           <td>{{ tema.nome }}</td>
           <td>{{ tema.descricao }}</td>
-          <button type="button" class="btn btn-info" (click)="editar(tema)">
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="editar(tema, 'tema')"
+          >
             Editar
           </button>
           <button type="button" class="btn btn-danger" (click)="excluir(tema)">

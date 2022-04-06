@@ -44,6 +44,11 @@ public class UsuarioController {
       var usuarioLogin = new UsuarioLogin();
       usuarioLogin.setMessage(e.getMessage());
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuarioLogin);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      var usuarioLogin = new UsuarioLogin();
+      usuarioLogin.setMessage(e.getMessage());
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(usuarioLogin);
     }
   }
 }

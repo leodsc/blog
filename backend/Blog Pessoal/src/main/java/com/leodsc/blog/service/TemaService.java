@@ -30,11 +30,12 @@ public class TemaService {
     novoTema.setNome(tema.getNome());
     novoTema.setDescricao(tema.getDescricao());
     repo.save(novoTema);
-    return ResponseEntity.ok().body(tema);
+    System.out.println(novoTema.getNome());
+    return ResponseEntity.ok().body(novoTema);
   }
 
-  public void deletar(TemaModel tema) {
-    var temaDeletar = repo.findById(tema.getId());
+  public void deletar(Long id) {
+    var temaDeletar = repo.findById(id);
     repo.delete(temaDeletar.get());
   }
 }

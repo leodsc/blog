@@ -4,6 +4,7 @@ import com.leodsc.blog.model.PostagemModel;
 import com.leodsc.blog.repository.PostagemRepository;
 import com.leodsc.blog.service.PostagemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,5 +26,16 @@ public class PostagemController {
   @PostMapping
   public ResponseEntity<PostagemModel> criarPostagem(@RequestBody PostagemModel postagem) {
     return service.criarPostagem(postagem);
+  }
+
+  @PutMapping
+  public List<PostagemModel> atualizarPostagem(@RequestBody PostagemModel postagem) {
+    return service.atualizarPostagem(postagem);
+  }
+
+  @DeleteMapping(path="/{id}")
+  public HttpStatus deletarPostagem(@PathVariable("id") Long id) {
+    service.deletar(id);
+    return HttpStatus.OK;
   }
 }

@@ -32,9 +32,9 @@ export class TemaService {
   }
 
   excluir(tema: Tema): Observable<Tema> {
-    return this.http.delete('http://localhost:8080/tema', {
+    let id = tema.id;
+    return this.http.delete(`http://localhost:8080/tema/${id}`, {
       headers: this.headers,
-      body: tema,
     });
   }
 }

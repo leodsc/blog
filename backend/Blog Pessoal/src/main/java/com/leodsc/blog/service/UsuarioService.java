@@ -18,8 +18,8 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-//  @Autowired
-//  private BCryptPasswordEncoder passwordEncoder;
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
   private UserDetailsServiceImpl userDetailsService;
@@ -27,11 +27,16 @@ public class UsuarioService {
   @Autowired
   private UsuarioRepository repo;
 
-  public ResponseEntity<UsuarioLogin> login(UsuarioModel usuario) {
+  public ResponseEntity<UsuarioLogin> login(UsuarioModel usuario) throws Exception {
+    var dbUsuario = repo.findByUsuario((usuario.getUsuario()));
+    if (dbUsuario.isPresent()) {
+      boolean comp = passwordEncoder.matches(usuario.getSenha(), dbUsuario.get().getSenha());
+      if (!comp) {
+        throw new Exception("Senha invalida");
+      }
+    }
     UserDetails user = userDetailsService.loadUserByUsername(usuario.getUsuario());
     String token = generateToken(usuario);
-    System.out.println(token);
-    var dbUsuario = repo.findByUsuario(usuario.getUsuario());
     var usuarioLogin = new UsuarioLogin(dbUsuario.get());
     usuarioLogin.setToken(token);
     return ResponseEntity.ok().body(usuarioLogin);

@@ -37,9 +37,9 @@ public class TemaController {
     return service.atualizar(tema);
   }
 
-  @DeleteMapping
-  public HttpStatus deletarTema(@RequestBody TemaModel tema) {
-    service.deletar(tema);
+  @DeleteMapping(path="/{id}")
+  public HttpStatus deletarTema(@PathVariable("id") Long id) {
+    service.deletar(id);
     return HttpStatus.OK;
   }
 }

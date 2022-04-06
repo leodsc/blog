@@ -34,12 +34,14 @@ export class FormComponent implements OnInit {
         sessionStorage.setItem('nome', temp);
         temp = this.userLogin.id;
         sessionStorage.setItem('id', temp);
+        console.log(this.userLogin);
         this.menuLoginService.editMenu(true);
         this.router.navigate(['/inicio']);
       },
       (erro) => {
-        if (erro.status == 500) {
+        if (erro.status == 401 || erro.status == 403) {
           alert('usuario ou senha incorretos');
+          this.router.navigate(['/login']);
         }
       }
     );

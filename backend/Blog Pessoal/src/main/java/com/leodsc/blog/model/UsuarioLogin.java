@@ -1,12 +1,8 @@
 package com.leodsc.blog.model;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 public class UsuarioLogin extends UsuarioModel {
+
+  private Long id;
 
   private String nome = "";
 
@@ -25,6 +21,7 @@ public class UsuarioLogin extends UsuarioModel {
   public UsuarioLogin() { };
 
   public UsuarioLogin(UsuarioModel usuario) {
+    this.id = usuario.getId();
     this.nome = usuario.getNome();
     this.senha = usuario.getSenha();
     this.usuario = usuario.getUsuario();
@@ -75,5 +72,14 @@ public class UsuarioLogin extends UsuarioModel {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  @Override
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 }
