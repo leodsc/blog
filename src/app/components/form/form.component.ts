@@ -32,6 +32,8 @@ export class FormComponent implements OnInit {
         environment.foto = this.userLogin.foto;
         sessionStorage.setItem('token', environment.token);
         sessionStorage.setItem('nome', temp);
+        temp = this.userLogin.id;
+        sessionStorage.setItem('id', temp);
         this.menuLoginService.editMenu(true);
         this.router.navigate(['/inicio']);
       },

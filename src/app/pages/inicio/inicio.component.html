@@ -6,18 +6,29 @@
     </button>
   </section>
   <article *ngIf="currentPanel === 'postagens'">
-    <select class="border-0" aria-label="Default select example">
+    <!-- <select class="border-0" aria-label="Default select example">
+      <label for="tema"></label>
       <option selected>Escolha um tema para a postagem</option>
-      <option *ngFor="let tema of temas" value="{{ tema }}">
+      <option
+        [(ngModel)]="postagem.tema!.nome"
+        *ngFor="let tema of temas"
+        name="tema"
+        id="tema"
+        value="{{ tema }}"
+      >
         {{ tema.nome }}
       </option>
-    </select>
+    </select> -->
     <div class="input-group">
+      <label for="texto"></label>
       <textarea
+        [(ngModel)]="postagem.texto"
         style="height: 160px"
         class="form-control"
         placeholder="Texto da postagem"
         aria-label="With textarea"
+        name="texto"
+        id="texto"
       ></textarea>
     </div>
     <div class="input-group mb-3 align-items-center">
@@ -28,10 +39,14 @@
         aria-describedby="inputGroup-sizing-default"
         placeholder="Título da nova postagem"
         required
+        name="titulo"
+        id="titulo"
+        [(ngModel)]="postagem.titulo"
       />
       <button
         class="input-group-text bg-info text-white"
         id="inputGroup-sizing-default"
+        (click)="enviarPostagem()"
       >
         Enviar
       </button>
