@@ -29,6 +29,11 @@ public class UsuarioController {
     return repo.findAll();
   }
 
+  @GetMapping("/{id}")
+  public UsuarioModel getById(@PathVariable Long id) {
+    return repo.findById(id).get();
+  }
+
   @PostMapping("/signup")
   public ResponseEntity<UsuarioModel> signup(@RequestBody UsuarioModel usuario) {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -50,5 +55,10 @@ public class UsuarioController {
       usuarioLogin.setMessage(e.getMessage());
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body(usuarioLogin);
     }
+  }
+
+  @PutMapping
+  public ResponseEntity<UsuarioLogin> atualizar(@RequestBody UsuarioLogin usuario) {
+    return this.service.atualizar(usuario);
   }
 }

@@ -51,4 +51,18 @@ public class UsuarioService {
     repo.save(usuario);
     return ResponseEntity.ok().body(usuario);
   }
+
+  public ResponseEntity<UsuarioLogin> atualizar(UsuarioLogin usuario) {
+    var user = this.repo.findByUsuario(usuario.getUsuario());
+
+    if (user.isPresent()) {
+      user.get().setUsuario(usuario.getUsuario());
+      user.get().setFoto(usuario.getUsuario());
+      user.get().setNome(usuario.getNome());
+      user.get().setTipo(usuario.getTipo());
+      repo.save(user.get());
+      return ResponseEntity.ok(usuario);
+    }
+    throw new UsernameNotFoundException("nao achado");
+  }
 }

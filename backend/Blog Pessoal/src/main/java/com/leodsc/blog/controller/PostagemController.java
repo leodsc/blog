@@ -18,6 +18,9 @@ public class PostagemController {
   @Autowired
   private PostagemService service;
 
+  @Autowired
+  private PostagemRepository repo;
+
   @GetMapping
   public List<PostagemModel> getAll() {
     return service.getAll();
@@ -26,6 +29,11 @@ public class PostagemController {
   @PostMapping
   public ResponseEntity<PostagemModel> criarPostagem(@RequestBody PostagemModel postagem) {
     return service.criarPostagem(postagem);
+  }
+
+  @GetMapping("/{titulo}")
+  public List<PostagemModel> procurarPostagem(@PathVariable String titulo) {
+    return repo.findAllByTituloContainingIgnoreCase(titulo);
   }
 
   @PutMapping

@@ -34,6 +34,7 @@ public class TemaController {
 
   @PutMapping
   public ResponseEntity<TemaModel> atualizarTema(@RequestBody TemaModel tema) {
+    System.out.println("atualizacao de tema");
     return service.atualizar(tema);
   }
 
