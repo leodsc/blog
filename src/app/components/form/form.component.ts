@@ -30,6 +30,7 @@ export class FormComponent implements OnInit {
         // environment.nome = this.userLogin.nome;
         temp = this.userLogin.nome;
         environment.foto = this.userLogin.foto;
+        environment.email = this.userLogin.usuario;
         sessionStorage.setItem('token', environment.token);
         sessionStorage.setItem('nome', temp);
         temp = this.userLogin.id;

@@ -3,9 +3,11 @@ export const environment: {
   foto?: string;
   nome?: string;
   token: string;
+  email?: string;
 } = {
   production: true,
   foto: '',
   nome: '',
   token: '',
+  email: '',
 };

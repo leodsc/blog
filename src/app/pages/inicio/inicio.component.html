@@ -4,8 +4,17 @@
     <button class="btn-a" (click)="changeCurrentPanel('postagens')">
       Postagens
     </button>
+    <button class="btn-a" (click)="changeCurrentPanel('minhas-postagens')">
+      Minhas Postagens
+    </button>
   </section>
   <article *ngIf="currentPanel === 'postagens'">
+    <input
+      type="text"
+      [(ngModel)]="termo"
+      placeholder="Procurar postagem por titulo"
+      (change)="procurar()"
+    />
     <label for="tema">Escolha um tema para a postagem</label>
     <select
       name="tema"
@@ -197,5 +206,28 @@
     <!-- <div *ngFor="let tema of temas">
       <p class="tema">{{ tema }}</p>
     </div> -->
+  </article>
+  <article *ngIf="currentPanel === 'minhas-postagens'">
+    <div *ngFor="let postagem of postagens">
+      <p class="titulo">Titulo: {{ postagem.titulo }}</p>
+      <p class="texto">
+        {{ postagem.texto }}
+        <button
+          type="button"
+          class="btn btn-info"
+          (click)="editar(postagem, 'postagem')"
+        >
+          Editar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="excluirPostagem(postagem)"
+        >
+          Excluir
+        </button>
+      </p>
+      <p class="tema">Tema: {{ postagem.tema.nome }}</p>
+    </div>
   </article>
 </main>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Postagem } from 'src/app/model/Postagem';
 import { Tema } from 'src/app/model/Tema';
 import { User } from 'src/app/model/User';
+import { AuthService } from 'src/app/service/auth.service';
 import { PostagemService } from 'src/app/service/postagem.service';
 import { environment } from 'src/environments/environment.prod';
 import { TemaService } from '../../service/tema.service';
@@ -15,7 +16,7 @@ import { TemaService } from '../../service/tema.service';
 export class InicioComponent implements OnInit {
   temaId: number;
   modalEdit: boolean = false;
-  currentTema: any;
+  currentTema: Tema;
   currentPanel: string = 'postagens';
 
   temas: any;
@@ -26,13 +27,15 @@ export class InicioComponent implements OnInit {
   temaPostagem: Tema;
   postagens: Postagem[];
   modalEditPostagem: boolean = false;
+  termo: string = '';
 
   usuario: User = new User();
 
   constructor(
     private temaService: TemaService,
     private router: Router,
-    private postagemService: PostagemService
+    private postagemService: PostagemService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +50,14 @@ export class InicioComponent implements OnInit {
   }
 
   changeCurrentPanel(panel: string) {
+    const id = Number(localStorage.getItem('id'));
+    if (panel === 'postagens') {
+      this.getAllPostagens();
+    } else if (panel === 'minhas-postagens') {
+      this.authService.getById(id).subscribe((resp: User) => {
+        this.postagens = resp.postagem;
+      });
+    }
     this.currentPanel = panel;
   }
 
@@ -68,11 +79,11 @@ export class InicioComponent implements OnInit {
     if (tipo == 'tema') {
       this.modalEdit = !this.modalEdit;
       this.currentTema = $event;
-      this.temaService.editar($event).subscribe((resp: Tema) => {
-        alert('tema editado!');
-        this.modalEdit = !this.modalEdit;
-        this.getAll();
-      });
+      // this.temaService.editar($event).subscribe((resp: Tema) => {
+      //   alert('tema editado!');
+      //   this.modalEdit = !this.modalEdit;
+      //   this.getAll();
+      // });
     } else {
       this.modalEditPostagem = !this.modalEditPostagem;
       this.currentPostagem = $event;
@@ -94,7 +105,11 @@ export class InicioComponent implements OnInit {
           tema = resp;
         }
       });
-      alert(`Tema foi alterado!`);
+      this.modalEdit = false;
+      this.postagemService.getAll().subscribe((resp: Postagem[]) => {
+        this.postagens = resp;
+        alert(`Tema foi alterado!`);
+      });
     });
   }
 
@@ -135,5 +150,13 @@ export class InicioComponent implements OnInit {
       alert('Postagem excluida!');
       this.getAllPostagens();
     });
+  }
+
+  procurar() {
+    this.postagemService
+      .procurarTitulo(this.termo)
+      .subscribe((resp: Postagem[]) => {
+        this.postagens = resp;
+      });
   }
 }

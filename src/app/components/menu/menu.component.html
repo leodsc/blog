@@ -26,6 +26,7 @@
         <div class="d-flex" *ngIf="logado">
           <h3>{{ nome }}</h3>
           <img src="{{ foto }}" alt="" />
+          <button [swal]="editarPerfil">editar perfil</button>
           <li class="nav-item d-flex mr-4">
             <button class="nav-link" (click)="sair()">Sair</button>
           </li>
@@ -34,3 +35,28 @@
     </div>
   </div>
 </nav>
+
+<swal #editarPerfil [swalOptions]="swalOptions">
+  <form *swalPortal="undefined">
+    <input
+      type="text"
+      [(ngModel)]="nome"
+      class="swal2-input"
+      placeholder="Nome de usuario"
+    />
+    <input
+      type="email"
+      class="swal2-input"
+      [(ngModel)]="email"
+      placeholder="Email"
+    />
+    <input type="password" class="swal2-input" placeholder="Senha" />
+    <input type="password" class="swal2-input" placeholder="Confirmar Senha" />
+    <input
+      type="text"
+      class="swal2-input"
+      [(ngModel)]="foto"
+      placeholder="Foto"
+    />
+  </form>
+</swal>

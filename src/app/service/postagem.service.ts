@@ -15,14 +15,17 @@ export class PostagemService {
   );
 
   getAll(): Observable<Postagem[]> {
-    return this.http.get<Postagem[]>('http://localhost:8080/postagem', {
-      headers: this.headers,
-    });
+    return this.http.get<Postagem[]>(
+      'https://blog-pessoal-leo.herokuapp.com/postagem',
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   criar(postagem: Postagem): Observable<Postagem> {
     return this.http.post<Postagem>(
-      'http://localhost:8080/postagem',
+      'https://blog-pessoal-leo.herokuapp.com/postagem',
       postagem,
       { headers: this.headers }
     );
@@ -30,7 +33,7 @@ export class PostagemService {
 
   editar(postagem: Postagem): Observable<Postagem[]> {
     return this.http.put<Postagem[]>(
-      'http://localhost:8080/postagem',
+      'https://blog-pessoal-leo.herokuapp.com/postagem',
       postagem,
       { headers: this.headers }
     );
@@ -38,7 +41,16 @@ export class PostagemService {
 
   excluir(postagem: Postagem): Observable<Postagem> {
     return this.http.delete<Postagem>(
-      `http://localhost:8080/postagem/${postagem.id}`,
+      `https://blog-pessoal-leo.herokuapp.com/postagem/${postagem.id}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  procurarTitulo(titulo: string): Observable<Postagem[]> {
+    return this.http.get<Postagem[]>(
+      `https://blog-pessoal-leo.herokuapp.com/postagem/${titulo}`,
       {
         headers: this.headers,
       }

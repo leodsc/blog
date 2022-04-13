@@ -11,10 +11,26 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   entrar(userLogin: UserLogin): Observable<UserLogin> {
-    return this.http.post('http://localhost:8080/usuarios/login', userLogin);
+    return this.http.post(
+      'https://blog-pessoal-leo.herokuapp.com/usuarios/login',
+      userLogin
+    );
   }
 
   cadastrar(user: User): Observable<User> {
-    return this.http.post('http://localhost:8080/usuarios/signup', user);
+    return this.http.post<User>(
+      'https://blog-pessoal-leo.herokuapp.com/usuarios/signup',
+      user
+    );
+  }
+
+  getById(id: number): Observable<User> {
+    let token = String(localStorage.getItem('token'));
+    return this.http.get<User>(
+      `https://blog-pessoal-leo.herokuapp.com/usuarios/${id}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
   }
 }

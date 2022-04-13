@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './pages/posts/posts.component';
@@ -34,6 +35,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     HttpClientModule,
     FormsModule,
     MatDialogModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

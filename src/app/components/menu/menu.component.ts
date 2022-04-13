@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { switchAll } from 'rxjs';
 import Link from 'src/app/classes/Link';
 import { AuthService } from 'src/app/service/auth.service';
 import { MenuLoginService } from 'src/app/service/menu-login.service';
 import { environment } from 'src/environments/environment.prod';
+import { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-menu',
@@ -16,6 +18,7 @@ export class MenuComponent implements OnInit {
   showNav: boolean = false;
   nome = sessionStorage.getItem('nome');
   foto: string = '';
+  email = environment.email;
   navActive: string = '';
   navigation: Link[] = [
     new Link('Login', '/assets/user.svg', '/login'),
@@ -24,7 +27,8 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private menuLoginService: MenuLoginService
+    private menuLoginService: MenuLoginService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -47,4 +51,16 @@ export class MenuComponent implements OnInit {
     this.logado = false;
     this.route.navigate(['/']);
   }
+
+  editarPerfil() {}
+
+  swalOptions: SweetAlertOptions = {
+    title: 'Atualizar usuario',
+    confirmButtonColor: 'green',
+    cancelButtonColor: 'red',
+    confirmButtonText: 'Atualizar',
+    cancelButtonText: 'Cancelar',
+    showCancelButton: true,
+    preConfirm: () => {},
+  };
 }
